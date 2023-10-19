@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-read
+#!/usr/bin/env deno run --allow-read
 async function* readFiles(dir: string) {
   for await (const file of Deno.readDir(dir)) {
     yield Deno.readTextFile(`${dir}/${file.name}`);
