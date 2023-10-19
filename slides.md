@@ -196,11 +196,35 @@ Note: In order to use top-level `await` in Node.js, make sure to use `.mjs` file
 
 ---
 
-## Node.js example
+# Async iteration with for await
 
-<br>
+- `for await` iterates over `AsyncIterable`s
+- Non-blocking code execution
+- Ideal for streaming data
+- Common in Node.js/Deno/Bun for I/O operations
 
-### Example 6: Without top-level await
+---
+
+# Accessing filesystem
+
+## Node.js
+- `fs` module
+- 3 variants:
+  - `*Sync` versions functions (ok for simple scripting; problematic to parallelize)
+  - callback versions with `fs` (christmas-tree-callback-hell prone)
+  - promise-based versions with `fs/promises` (great with `await`)
+
+## Deno
+- standard functions exposed under `Deno` namespace
+- compatibility layer for Node.js' `fs` module
+
+## Bun
+- a few optimized functions exposed under `Bun` namespace
+- compatibility layer for Node.js' `fs` module
+
+---
+
+## Example 6: Node.js without top-level await
 
 ```bash
 #!/usr/bin/env node
@@ -218,7 +242,7 @@ main();
 
 <br>
 
-### Example 7: With top-level await
+## Example 7: Node.js with top-level await
 
 ```bash
 #!/usr/bin/env node
@@ -229,32 +253,21 @@ import { readFile } from 'fs/promises';
 const data = await readFile('example.txt', 'utf-8');
 console.log(data);
 ```
-
 ---
 
-# Async iteration with for await
-
-- `for await` iterates over `AsyncIterable`s
-- Non-blocking code execution
-- Ideal for streaming data
-- Common in Node.js/Deno/Bun for I/O operations
-
----
-
-## Example 8: Node.js
+## Example 8: Node.js with async iteration
 
 ```bash
 #!/usr/bin/env node
 ```
 ```javascript
 import { readdir, readFile } from 'fs/promises';
-import { join } from 'path';
 
 async function* readFiles(dir) {
   const files = await readdir(dir);
 
   for (const file of files) {
-    yield readFile(join(dir, file), 'utf-8');
+    yield readFile(`${dir}/${file}`, 'utf-8');
   }
 }
 
@@ -265,17 +278,15 @@ for await (const content of readFiles('./testdir')) {
 
 ---
 
-## Example 9: Deno
+## Example 9: Deno with async iteration
 
 ```bash
 #!/usr/bin/env -S deno run --allow-read
 ```
 ```typescript
 async function* readFiles(dir: string) {
-  for await (const dirEntry of Deno.readDir(dir)) {
-    const filePath = `${dir}/${dirEntry.name}`;
-
-    yield Deno.readTextFile(filePath);
+  for await (const file of Deno.readDir(dir)) {
+    yield Deno.readTextFile(`${dir}/${file.name}`);
   }
 }
 
@@ -286,32 +297,54 @@ for await (const content of readFiles('./testdir')) {
 
 ---
 
-# Accessing filesystem
+### Example 10: Bun with async iteration
 
-## Node.js
-- `fs` module
+```bash
+#!/usr/bin/env bun
+```
+```typescript
+import { readdir } from 'node:fs/promises';
 
-## Deno
-- standard functions exposed under `Deno` namespace
-- compatibility layer for Node.js' `fs` module
+async function* readFiles(dir: string) {
+  const files = await readdir(dir);
 
-## Bun
-- standard and optimized functions exposed under `Bun` namespace
-- compatibility layer for Node.js' `fs` module
+  for (const file of files) {
+    yield Bun.file(`${dir}/${file}`).text();
+  }
+}
 
----
-
-### Example 10: Node.js
-
----
-
-### Example 11: Deno
-
----
-
-### Example 12: Bun
+for await (const content of readFiles('./testdir')) {
+  console.log(content);
+}
+```
 
 ---
+
+```bash
+```
+```javascript
+const https = require('https');
+
+https.get('https://example.com', (response) => {
+  let data = '';
+  response.on('data', (chunk) => data += chunk);
+  response.on('end', () => console.log(data));
+}).on('error', (error) => console.error('Error:', error.message));
+```
+
+Identical for bun & deno!
+
+```bash
+```
+```typescript
+try {
+  const response = await fetch('https://example.com');
+  const data = await response.text();
+  console.log(data);
+} catch (error) {
+  console.error('Error:', error.message);
+}
+```
 
 ---
 layout: statement
@@ -333,10 +366,11 @@ Notes:
 - stdin/stdout/stderr
 - Async/await (top-level too)
 - for await loops for streaming
-
 - working with FS: describe a few differences between envs (and optimizitions done in Bun)
 
 - fetching data (Node.js vs `fetch` in Deno/Bun)
+- mention about `cheerio`
+
 - child processes
 - output & colors (chai in Node.js vs Deno)
 - prompts & input
