@@ -603,7 +603,23 @@ layout: statement
 
 # Reverse Q&A
 
-### What will be the first script you'll create with your newfound knowledge?
+### 1. What's hashbang?
+
+<br>
+
+### 2. Why is top-level await useful?
+
+<br>
+
+### 4. What libraries can be used for prompts?
+
+<br>
+
+### 3. How to fetch data in Node.js, Deno and Bun?
+
+<br>
+
+### 5. What will be the first script you'll create with your newfound knowledge?
 
 ---
 layout: cover
