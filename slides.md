@@ -6,7 +6,7 @@ highlighter: monaco
 lineNumbers: false
 transition: slide-left
 title: Scripting with JavaScript/TypeScript (Node.js/Deno/Bun)
-background: ./images/intro-alternate.png
+background: /images/intro-alternate.png
 mdc: true
 hideInToc: true
 ---
@@ -22,7 +22,7 @@ by Jiri
 
 ---
 layout: image-right
-image: ./images/toc.png
+image: /images/toc.png
 hideInToc: true
 ---
 
@@ -32,7 +32,7 @@ hideInToc: true
 
 ---
 layout: image-right
-image: ./images/nodejs.png
+image: /images/nodejs.png
 ---
 
 # Node.js
@@ -44,7 +44,7 @@ image: ./images/nodejs.png
 
 ---
 layout: image-right
-image: ./images/deno.png
+image: /images/deno.png
 ---
 
 # Deno
@@ -59,7 +59,7 @@ image: ./images/deno.png
 
 ---
 layout: image-right
-image: ./images/bun.png
+image: /images/bun.png
 ---
 
 # Bun
@@ -592,6 +592,22 @@ console.log('Name:', name);
 ```
 
 ---
+
+# Script -> Tool
+
+<br>
+
+- Problem: To run a script, one needs to be in the folder with it or use relative/absolute path.
+- Solutions:
+  1. (My favorite) Create `~/.bin` or `~/local/.bin` and add it to your `PATH` env variable; place all the scripts you want available globally there
+  2. Move them to `/usr/bin` which is usually in `PATH` by default
+  3. Use `deno install ...`
+
+<br>
+
+Tip: `Deno` and `Bun` also provide `bundle` and `compile` (for `Deno`) or `build` (for `Bun`) to create a single script/binary you can then use or distribute (this allows you to have the script in single file, together with deps & interpreter itself).
+
+---
 layout: statement
 ---
 
@@ -623,6 +639,6 @@ layout: statement
 
 ---
 layout: cover
-background: ./images/thank-you.png
+background: /images/thank-you.png
 dim: false
 ---
