@@ -6,7 +6,7 @@ highlighter: monaco
 lineNumbers: false
 transition: slide-left
 title: Scripting with JavaScript/TypeScript (Node.js/Deno/Bun)
-background: /images/intro-alternate.png
+background: ./images/intro-alternate.png
 mdc: true
 hideInToc: true
 ---
@@ -22,7 +22,7 @@ by Jiri
 
 ---
 layout: image-right
-image: /images/toc.png
+image: ./images/toc.png
 hideInToc: true
 ---
 
@@ -32,7 +32,7 @@ hideInToc: true
 
 ---
 layout: image-right
-image: /images/nodejs.png
+image: ./images/nodejs.png
 ---
 
 # Node.js
@@ -44,7 +44,7 @@ image: /images/nodejs.png
 
 ---
 layout: image-right
-image: /images/deno.png
+image: ./images/deno.png
 ---
 
 # Deno
@@ -59,7 +59,7 @@ image: /images/deno.png
 
 ---
 layout: image-right
-image: /images/bun.png
+image: ./images/bun.png
 ---
 
 # Bun
@@ -639,6 +639,6 @@ layout: statement
 
 ---
 layout: cover
-background: /images/thank-you.png
+background: ./images/thank-you.png
 dim: false
 ---
